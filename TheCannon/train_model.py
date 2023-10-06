@@ -222,17 +222,10 @@ def _do_one_regression_at_fixed_scatter(lams, fluxes, ivars, lvec, scatter):
         inverse of the log determinant of the cov matrix
     """
     Cinv = ivars / (1 + ivars*scatter**2)
-    print('Inverse covariance shape:', Cinv.shape)
     lTCinvl = np.dot(lvec.T, Cinv[:, None] * lvec)
-    print('lvec shape:', lvec.shape)
-    print('lvec transform shape:', lvec.T.shape)
-    print('Cinv extra axis:', Cinv[:,None].shape)
-    print('lTCinv1 shape:', ltcinv1.shape)
     lTCinvf = np.dot(lvec.T, Cinv * fluxes)
-    print('lTCinvf shape:', lTCinvf.shape)
     try:
         coeff = np.linalg.solve(lTCinvl, lTCinvf)
-	pritn('coeffs:', coeff.shape, coeff)
     except np.linalg.linalg.LinAlgError:
         print("np.linalg.linalg.LinAlgError, do_one_regression_at_fixed_scatter")
         print(lTCinvl, lTCinvf, lams, fluxes)

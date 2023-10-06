@@ -428,6 +428,8 @@ class Dataset(object):
             filename = "flagged_stars_%s.txt" % i
             with open(filename, 'w') as output:
                 for star in test_IDs[warning]:
+                    if type(star) != str:
+                        star = str(star)
                     output.write('{0:s}\n'.format(star))
             print("Reference label %s" % label_name)
             print("flagged %s stars beyond 2-sig of ref labels" % sum(warning))
